@@ -2,101 +2,120 @@
 
 # Frameworks Web: Angular 21 + TailwindCSS
 
-## Practica 04 - Estilos y Layout con Tailwind
+## Practica 05 - Formularios Reactivos
 
 ### Autor
 Josue Abad
 
 ---
 
-# Descripción
+## Descripción
 
-En esta práctica se aplicaron utilidades TailwindCSS sobre las páginas existentes del proyecto Angular:
+En esta práctica se implementó un formulario reactivo en Angular utilizando validaciones síncronas, personalizadas y asíncronas.
 
-- HomePage
-- StudentsPage
-- StudentDetailPage
+El formulario corresponde a una página de registro (SignupPage) con control completo de estado mediante Reactive Forms.
 
-Además, se creó una nueva página llamada `LayoutsPage` para explorar diferentes distribuciones usando Grid y Flexbox.
+## Tecnologías utilizadas
+Angular 21
+TypeScript
+HTML
+Reactive Forms (Angular)
 
----
+## SignupPage - Formularios Reactivos
+## Descripción
 
-# Tecnologías utilizadas
+Se desarrolló un formulario reactivo con los siguientes campos:
 
-- Angular 21
-- TailwindCSS
-- TypeScript
-- HTML
+Email
+Password
+Confirm Password
 
----
+El objetivo es validar la información del usuario en tiempo real y controlar el estado del formulario desde TypeScript.
 
-# Cambios realizados
+## Validaciones implementadas
+Email requerido
+Email con formato válido
+Password mínimo de 8 caracteres
+Confirmación de contraseña
+Validación personalizada (password match)
+Validación asíncrona de email único
+Validación asíncrona de email
 
-## HomePage
+Se implementó un validador asíncrono que simula la verificación de un correo electrónico en una base de datos.
 
-- Se reemplazaron estilos CSS por utilidades Tailwind.
-- Se agregaron botones estilizados.
-- Se aplicó spacing responsive.
+## Código del validador asíncrono
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  ValidationErrors,
+} from '@angular/forms';
+import { delay, map, Observable, of } from 'rxjs';
 
----
+export function emailUniqueValidator(): AsyncValidatorFn {
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
 
-## StudentsPage
+    if (!control.value) {
+      return of(null);
+    }
 
-- La lista de estudiantes fue convertida en cards.
-- Se añadieron efectos hover y bordes con Tailwind.
+    return of(control.value).pipe(
+      delay(500),
 
----
+      map((email: string) => {
+        const takenEmails = [
+          'user@example.com',
+          'admin@example.com',
+          'test@example.com',
+        ];
 
-## StudentDetailPage
+        return takenEmails.includes(email.toLowerCase())
+          ? { emailTaken: true }
+          : null;
+      })
+    );
+  };
+}
+## Integración en FormGroup
+email: [
+  '',
+  [Validators.required, Validators.email],
+  [emailUniqueValidator()]
+],
+password: [
+  '',
+  [Validators.required, Validators.minLength(8)]
+],
+confirmPassword: [
+  '',
+  Validators.required
+]
 
-- Se estilizó la caja del ID recibido.
-- Se agregó un botón de retorno con efecto hover.
+## Validación personalizada (password match)
 
----
+Se utiliza un validador a nivel de formulario para verificar que las contraseñas coincidan.
 
-## LayoutsPage
+{
+  validators: passwordMatchValidator
+}
+Mensajes en el template
+@if (email.status === 'PENDING') {
+  <p>Verificando disponibilidad...</p>
+}
 
-Se implementaron diferentes distribuciones usando Grid y Flexbox:
+@if (email.touched && email.hasError('emailTaken')) {
+  <p>Este email ya está registrado</p>
+}
 
-- Grid de 4 columnas
-- Grid con sidebar
-- Grid de 3 columnas
-- Flex carrusel horizontal
-- Flex wrap
+@if (form.hasError('passwordMismatch') && confirmPassword.touched) {
+  <p>Las contraseñas no coinciden</p>
+}
 
-Además, se añadieron layouts personalizados adicionales.
-
----
-
-# Layout adicional 1 - Grid Vertical
-
-Este layout utiliza `grid-rows-2` para distribuir el contenido verticalmente.
-
-![Grid Vertical](assets/grid-vertical.png)
-
----
-
-# Layout adicional 2 - Flex Responsive
-
-Este layout cambia automáticamente entre columna y fila dependiendo del tamaño de pantalla.
-
-![Flex Responsive](assets/flex-responsive.png)
-
----
-
-# Layout adicional 3 - Grid Asimétrico
-
-Este layout utiliza `col-span` para destacar contenido principal dentro del grid.
-
-![Grid Asimétrico](assets/grid-asimetrico.png)
-
----
-
-# Layout adicional 4 - Flex Centrado
-
-Este layout centra elementos horizontal y verticalmente usando Flexbox.
-
-![Flex Centrado](assets/flex-centrado.png)
-
----
-
+## Resultado final
+Formulario reactivo con FormGroup
+Validaciones síncronas (required, email, minLength)
+Validación personalizada entre campos
+Validación asíncrona simulando consulta a base de datos
+Control de estado del formulario (VALID, INVALID, PENDING)
+Feedback dinámico al usuario
+![Errores Pantalla](assets/errores-pantalla.png)
+![Error email registrado](assets/error-email.png)

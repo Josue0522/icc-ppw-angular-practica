@@ -1,0 +1,98 @@
+<section class="space-y-10">
+    <header class="space-y-3">
+        <p class="text-sm font-semibold uppercase tracking-[0.3em] text-sky-700">Sign up</p>
+
+        <!--
+        md:text-4xl: escala tipográfica en pantallas medianas (≥768px).
+        -->
+        <h1 class="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
+            Crear cuenta
+        </h1>
+    </header>
+
+    <form
+        form [formGroup]="form" (ngSubmit)="onSubmit()" class="max-w-md space-y-4">
+        <div class="space-y-2 ">
+            <label 
+                for="email"
+                class="block text-sm font-semibold "
+            >Email</label>
+
+            <input 
+                id="email"
+                type="email"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 
+                text-slate-900 placeholder-slate-400
+                focus:border-sky-50 focus:ring-2 focus:ring-sky-200"
+                placeholder="tu@email.com"
+                formControlName="email" 
+            >
+            @if (email.touched && email.hasError('required')){
+                <p class="text-sm text-red-600">Email es requirido</p>
+            }
+
+            @if (email.touched && email.hasError('email')){
+                <p class="text-sm text-red-600">Email invalido</p>
+            }
+            @if (email.status === 'PENDING') {
+                <p class="text-xs text-slate-500">Verificando disponibilidad...</p>
+            }
+            @if (email.touched && email.hasError('emailTaken')) {
+                <p class="text-xs text-red-600">Este email ya está registrado</p>
+            }
+
+        
+
+            <label
+                for="password"
+                class="block text-sm font-semibold "
+            >Contraseña</label>
+
+            <input 
+                id="password"
+                type="password"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 
+                text-slate-900 placeholder-slate-400
+                focus:border-sky-50 focus:ring-2 focus:ring-sky-200"
+                placeholder="Al menos 8 caracteres"
+                formControlName="password" 
+            >
+
+            @if (password.touched && password.hasError('required')){
+                <p class="text-sm text-red-600">Contraseña requirida </p>
+            }
+
+            @if (password.touched && password.hasError('minlength')){
+                <p class="text-sm text-red-600">Minimo 8 caractéres </p>
+            }
+
+            <label
+                for="confirmPassword"
+                class="block text-sm font-semibold "
+            >Confirmar Contraseña</label>
+
+            <input 
+                id="confirmPassword"
+                type="password"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 
+                text-slate-900 placeholder-slate-400
+                focus:border-sky-50 focus:ring-2 focus:ring-sky-200"
+                placeholder="Repite tu contraseña"
+                formControlName="confirmPassword" 
+            >
+            @if (form.hasError('passwordMismatch') && confirmPassword.touched) { 
+                <p class="text-xs text-red-600">Las contraseñas no coinciden</p>
+            }
+            
+            <button
+                type="submit"
+                class="w-full rounded-lg bg-sky-700 px-4 py-2 font-semibold
+                text-white transition hover:bg-sky-800 disabled:opacity-50"
+                [disabled]="form.invalid">
+            Crear cuenta
+        </button>
+
+        </div>
+    </form>
+
+</section>
