@@ -1,0 +1,13 @@
+<footer class="footer">
+
+    <h2>{{ title() | uppercase }}</h2>
+
+    <p>{{ message() | lowercase }}</p>
+
+    <p>Fecha: {{ today() | date:'shortDate' }}</p>
+
+    <p>Total: {{ price() | currency }}</p>
+
+    <p>{{ percent() | percent }}</p>
+
+</footer>

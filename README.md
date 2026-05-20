@@ -1,59 +1,108 @@
-# PpwAngularPractica
+# Programación y Plataformas Web
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.11.
+# Frameworks Web: Angular 21 + TailwindCSS
 
-## Development server
+## Practica 04 - Estilos y Layout con Tailwind
 
-To start a local development server, run:
+### Autor
+Josue Abad
+
+---
+
+# Descripción
+
+En esta práctica se aplicaron utilidades TailwindCSS sobre las páginas existentes del proyecto Angular:
+
+- HomePage
+- StudentsPage
+- StudentDetailPage
+
+Además, se creó una nueva página llamada `LayoutsPage` para explorar diferentes distribuciones usando Grid y Flexbox.
+
+---
+
+# Tecnologías utilizadas
+
+- Angular 21
+- TailwindCSS
+- TypeScript
+- HTML
+
+---
+
+# Cambios realizados
+
+## HomePage
+
+- Se reemplazaron estilos CSS por utilidades Tailwind.
+- Se agregaron botones estilizados.
+- Se aplicó spacing responsive.
+
+---
+
+## StudentsPage
+
+- La lista de estudiantes fue convertida en cards.
+- Se añadieron efectos hover y bordes con Tailwind.
+
+---
+
+## StudentDetailPage
+
+- Se estilizó la caja del ID recibido.
+- Se agregó un botón de retorno con efecto hover.
+
+---
+
+## LayoutsPage
+
+Se implementaron diferentes distribuciones usando Grid y Flexbox:
+
+- Grid de 4 columnas
+- Grid con sidebar
+- Grid de 3 columnas
+- Flex carrusel horizontal
+- Flex wrap
+
+Además, se añadieron layouts personalizados adicionales.
+
+---
+
+# Layout adicional 1 - Grid Vertical
+
+Este layout utiliza `grid-rows-2` para distribuir el contenido verticalmente.
+
+![Grid Vertical](assets/grid-vertical.png)
+
+---
+
+# Layout adicional 2 - Flex Responsive
+
+Este layout cambia automáticamente entre columna y fila dependiendo del tamaño de pantalla.
+
+![Flex Responsive](assets/flex-responsive.png)
+
+---
+
+# Layout adicional 3 - Grid Asimétrico
+
+Este layout utiliza `col-span` para destacar contenido principal dentro del grid.
+
+![Grid Asimétrico](assets/grid-asimetrico.png)
+
+---
+
+# Layout adicional 4 - Flex Centrado
+
+Este layout centra elementos horizontal y verticalmente usando Flexbox.
+
+![Flex Centrado](assets/flex-centrado.png)
+
+---
+
+# Ejecución del proyecto
+
+Instalar dependencias:
 
 ```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+pnpm install
