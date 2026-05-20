@@ -100,9 +100,3 @@ Este layout centra elementos horizontal y verticalmente usando Flexbox.
 
 ---
 
-# Ejecución del proyecto
-
-Instalar dependencias:
-
-```bash
-pnpm install
