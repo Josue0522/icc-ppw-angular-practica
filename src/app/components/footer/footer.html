@@ -1,13 +1,22 @@
-<footer class="footer">
+<footer class="footer sm:footer-horizontal mt-10 border border-base-200 bg-base-300 p-10 text-base-content shadow-sm">
+  <nav>
+    <h6 class="footer-title">PPW</h6>
+    <a class="link link-hover">Angular 21</a>
+    <a class="link link-hover">TailwindCSS</a>
+    <a class="link link-hover">DaisyUI</a>
+  </nav>
 
-    <h2>{{ title() | uppercase }}</h2>
+  <nav>
+    <h6 class="footer-title">Navegación</h6>
+    <a class="link link-hover" routerLink="/">Inicio</a>
+    <a class="link link-hover" routerLink="/students">Estudiantes</a>
+    <a class="link link-hover" routerLink="/ui-components">Componentes</a>
+  </nav>
 
-    <p>{{ message() | lowercase }}</p>
-
-    <p>Fecha: {{ today() | date:'shortDate' }}</p>
-
-    <p>Total: {{ price() | currency }}</p>
-
-    <p>{{ percent() | percent }}</p>
-
+  <nav>
+    <h6 class="footer-title">Curso</h6>
+    <a class="link link-hover">Layouts responsive</a>
+    <a class="link link-hover">Formularios</a>
+    <a class="link link-hover">Servicios HTTP</a>
+  </nav>
 </footer>

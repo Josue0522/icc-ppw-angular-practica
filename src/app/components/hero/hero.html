@@ -1,21 +1,36 @@
-<section class="hero">
-  <h2>{{ title() | uppercase }}</h2>
-  <p>{{ subtitle() }}</p>
-
-  <button type="button" (click)="toggleMode()">Vista: {{ viewMode() }}</button>
-
-  @switch (viewMode()) {
-    @case ('lista') {
-      <ul>
-        @for (item of topics(); track item) {
-          <li>{{ item }}</li>
-        } @empty {
-          <p>No hay temas registrados.</p>
-        }
-      </ul>
-    }
-    @case ('resumen') {
-      <p>Total de temas: <strong>{{ topics().length }}</strong></p>
-    }
-  }
+<!-- Hero Section -->
+<section class="pt-[140px] pb-section-gap px-gutter max-w-container-max mx-auto relative overflow-hidden" id="home">
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary-fixed/10 rounded-full blur-[100px] -z-10"></div>
+<div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-tertiary-fixed/10 rounded-full blur-[100px] -z-10"></div>
+<div class="flex flex-col md:flex-row items-center gap-16">
+<div class="flex-1 space-y-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 glass rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+<span class="font-label-md text-label-md text-on-secondary-fixed-variant">Disponible para nuevos proyectos</span>
+</div>
+<h1 class="font-display-xl text-display-xl tracking-tight">
+                    Josué Abad
+                </h1>
+<p class="font-headline-md text-headline-md text-on-surface-variant leading-relaxed">
+                    Estudiante de Ingeniería &amp; Desarrollador Web Full Stack
+                </p>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[600px]">
+                    Arquitecto de experiencias digitales. Me especializo en construir soluciones web escalables, precisas y visualmente impactantes, uniendo la ingeniería con el diseño moderno.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<a class="gradient-btn text-white px-8 py-4 rounded-2xl font-label-md text-label-md hover:scale-[1.02] transition-all shadow-lg flex items-center gap-2" href="#contact">
+                        Contactar <span class="material-symbols-outlined">send</span>
+</a>
+<button class="bg-white text-on-surface border border-outline-variant px-8 py-4 rounded-2xl font-label-md text-label-md hover:bg-surface-variant transition-all flex items-center gap-2">
+                        Descargar CV <span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute inset-0 bg-secondary-fixed-dim/20 rounded-full blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
+<div class="w-[320px] h-[320px] md:w-[420px] md:h-[420px] rounded-full border-4 border-white glass overflow-hidden relative z-10 cyan-glow">
+<img alt="Portrait of Julián Rodríguez" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEoopEPYivkdw6Xjlc9q0ZSJ46euk8txm0xJjnCXXxcCVOQUf8eSEkT5UsFR39c7dV4PoiB-1mFwkrwk3Hs9zHfiqlkRhWhhHJ4TGhrlOFpRsEmykegI4aWuHti1rdpfZbh_qF24tGw_AkBWLJzLzYLJVVHUhI91oBd_vzkepOrV-WRCRYRrUk6yTBdzHWgvMibARPJe91QNKPdDXQYx-gTJOubQydlZfdA-lGE2JCUCKh-Il-K5cQLvpos4qm9jcWVW38Wk1Tf_P2"/>
+</div>
+</div>
+</div>
 </section>
