@@ -1,27 +1,113 @@
-import { FormGroup, ValidationErrors } from '@angular/forms';
+import {
+  FormArray,
+  FormGroup,
+  ValidationErrors
+} from '@angular/forms';
 
 export class FormUtils {
 
-  static isValidField(form: FormGroup, field: string): boolean {
-    const control = form.get(field);
-    return !!control && control.touched && control.errors !== null;
+  /**
+   * Verifica si un campo es inválido y ha sido tocado
+   */
+  static isValidField(form: FormGroup, fieldName: string): boolean {
+
+    const control = form.controls[fieldName];
+
+    return !!control?.errors && control.touched;
   }
 
-  static getFieldError(form: FormGroup, field: string): string | null {
-    const control = form.get(field);
+  /**
+   * Obtiene el mensaje de error de un campo
+   */
+  static getFieldError(
+    form: FormGroup,
+    fieldName: string
+  ): string | null {
+
+    const control = form.controls[fieldName];
+
     if (!control) return null;
 
-    return this.getErrorMessage(control.errors);
+    const errors = control.errors ?? {};
+
+    return FormUtils.getTextError(errors);
   }
 
-  static getErrorMessage(errors: ValidationErrors | null): string | null {
-    if (!errors) return null;
+  /**
+   * Traduce el código de error a mensaje legible
+   */
+  static getTextError(
+    errors: ValidationErrors
+  ): string | null {
 
-    if (errors['required']) return 'Este campo es requerido';
-    if (errors['minlength']) return `Mínimo ${errors['minlength'].requiredLength} caracteres`;
-    if (errors['min']) return `Debe ser mayor o igual a ${errors['min'].min}`;
-    if (errors['email']) return 'Correo inválido';
+    for (const key of Object.keys(errors)) {
 
-    return 'Campo inválido';
+      switch (key) {
+
+        case 'required':
+          return 'Este campo es requerido';
+
+        case 'requiredTrue':
+          return 'Debe aceptar este campo';
+
+        case 'minlength':
+          return `Mínimo ${errors['minlength'].requiredLength} caracteres`;
+
+        case 'maxlength':
+          return `Máximo ${errors['maxlength'].requiredLength} caracteres`;
+
+        case 'min':
+          return `Valor mínimo: ${errors['min'].min}`;
+
+        case 'max':
+          return `Valor máximo: ${errors['max'].max}`;
+
+        case 'email':
+          return 'Formato de correo inválido';
+
+        case 'pattern':
+          return 'Formato inválido';
+
+        case 'emailTaken':
+          return 'Este correo ya está registrado';
+
+        case 'passwordMismatch':
+          return 'Las contraseñas no coinciden';
+
+        default:
+          return 'Error de validación';
+      }
+    }
+
+    return null;
   }
+
+  /**
+   * Verifica si un elemento de FormArray es inválido
+   */
+  static isValidFieldInArray(
+    formArray: FormArray,
+    index: number
+  ): boolean {
+
+    const control = formArray.controls[index];
+
+    return !!control?.errors && control.touched;
+  }
+
+  /**
+   * Obtiene el mensaje de error de un elemento de FormArray
+   */
+  static getFieldErrorInArray(
+    formArray: FormArray,
+    index: number
+  ): string | null {
+
+    if (formArray.controls.length === 0) return null;
+
+    const errors = formArray.controls[index]?.errors ?? {};
+
+    return FormUtils.getTextError(errors);
+  }
+
 }
