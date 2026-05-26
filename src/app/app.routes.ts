@@ -7,6 +7,8 @@ import { SignupPage } from './features/signup-page/signup-page';
 import { ProfilePage } from './features/profile/pages/profile-page/profile-page';
 import {ProjectConfigPage} from './features/project/pages/project-config-page/project-config-page';
 import { UiComponentsPage } from './features/ui-components/pages/ui-components-page/ui-components-page';
+import {SimpsonsPage} from './features/simpsons/pages/simpsons-page/simpsons-page';
+import { SimpsonDetailPageComponent } from './features/simpsons/pages/simpson-detail-page/simpson-detail-page';
 
 export const routes: Routes = [
     { path: '', component: HomePage },
@@ -17,5 +19,7 @@ export const routes: Routes = [
     { path: 'profile', component: ProfilePage },
     { path: 'project-config', component: ProjectConfigPage },
     { path: 'ui-components', component: UiComponentsPage },
+    { path: 'simpsons', component: SimpsonsPage},
+    { path: 'simpsons/:id', component: SimpsonDetailPageComponent},
     { path: '**', redirectTo: '' }
 ];
