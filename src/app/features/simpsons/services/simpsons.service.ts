@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+
+import { HttpClient } from '@angular/common/http';
 
 import {
   Observable,
@@ -16,6 +17,13 @@ import {
   SimpsonsResponse,
 } from '../models/simpsons.interface';
 
+import { environment } from '../../../../environments/environment';
+
+export interface Options {
+  page?: number;
+  limit?: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -23,13 +31,10 @@ export class SimpsonsService {
 
   private http = inject(HttpClient);
 
-  private readonly baseUrl = 'https://thesimpsonsapi.com/api';
-
-  // ===============================
-  // LISTADO SIMPLE
-  // ===============================
+  private readonly baseUrl = environment.apiUrl;
 
   getCharacters(page: number = 1): Observable<SimpsonsResponse> {
+
     return this.http
       .get<SimpsonsResponse>(
         `${this.baseUrl}/characters?page=${page}`
@@ -39,23 +44,19 @@ export class SimpsonsService {
           console.log('Simpsons API response:', response);
         }),
         catchError(() =>
-          throwError(() =>
-            new Error('No se pudieron cargar los personajes')
+          throwError(
+            () => new Error('No se pudieron cargar los personajes')
           )
         )
       );
+
   }
 
-  // ===============================
-  // OPCIONES DE PAGINACION
-  // ===============================
+  getCharactersOptions(
+    options: Options = {}
+  ): Observable<SimpsonsResponse> {
 
-  getCharactersOptions(options: Options = {}): Observable<SimpsonsResponse> {
-
-    const {
-      page = 1,
-      limit = 10
-    } = options;
+    const { page = 1, limit = 10 } = options;
 
     return this.http
       .get<SimpsonsResponse>(
@@ -63,16 +64,13 @@ export class SimpsonsService {
       )
       .pipe(
         catchError(() =>
-          throwError(() =>
-            new Error('No se pudieron cargar los personajes')
+          throwError(
+            () => new Error('No se pudieron cargar los personajes')
           )
         )
       );
-  }
 
-  // ===============================
-  // DETALLE DE PERSONAJE
-  // ===============================
+  }
 
   getCharacterById(id: number): Observable<SimpsonsCharacter> {
 
@@ -81,7 +79,6 @@ export class SimpsonsService {
         `${this.baseUrl}/characters/${id}`
       )
       .pipe(
-
         delay(300),
 
         timeout(5000),
@@ -93,24 +90,16 @@ export class SimpsonsService {
         map((character) => ({
           ...character,
           occupation:
-            character.occupation || 'Sin ocupacion registrada',
+            character.occupation || 'Sin ocupación registrada',
         })),
 
         catchError(() =>
-          throwError(() =>
-            new Error('No se pudo cargar el personaje')
+          throwError(
+            () => new Error('No se pudo cargar el personaje')
           )
         )
       );
+
   }
 
-}
-
-// ===============================
-// INTERFACE OPTIONS
-// ===============================
-
-export interface Options {
-  page?: number;
-  limit?: number;
 }

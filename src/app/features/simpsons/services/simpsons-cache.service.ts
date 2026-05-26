@@ -14,6 +14,7 @@ export class SimpsonsCacheService {
     const map = this.readMap();
 
     return map[id] ?? null;
+
   }
 
   save(character: SimpsonsCharacter): void {
@@ -22,10 +23,8 @@ export class SimpsonsCacheService {
 
     map[character.id] = character;
 
-    localStorage.setItem(
-      this.key,
-      JSON.stringify(map)
-    );
+    localStorage.setItem(this.key, JSON.stringify(map));
+
   }
 
   private readMap(): Record<number, SimpsonsCharacter> {
@@ -33,5 +32,7 @@ export class SimpsonsCacheService {
     const raw = localStorage.getItem(this.key);
 
     return raw ? JSON.parse(raw) : {};
+
   }
+
 }

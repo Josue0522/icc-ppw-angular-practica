@@ -1,64 +1,86 @@
-<section class="mx-auto max-w-4xl space-y-6">
+<section class="min-h-screen bg-base-200 py-10 px-6">
+
+  <div class="max-w-4xl mx-auto">
+
     <a
-        routerLink="/simpsons"
-        class="btn btn-ghost btn-sm"
-    >← Volver al listado</a>
+      routerLink="/simpsons"
+      class="btn btn-ghost btn-sm mb-6"
+    >
+      ← Volver
+    </a>
 
     @if (characterResource.isLoading()) {
-    <div class="flex h-56 items-center justify-center">
-        <span class="loading loading-spinner loading-lg text-primary"></span>
+
+    <div class="flex justify-center items-center h-64">
+      <span class="loading loading-spinner loading-lg text-primary"></span>
     </div>
+
     }
 
     @if (characterResource.error()) {
+
     <div class="alert alert-error">
-        <span>No se pudo cargar el personaje.</span>
+      <span>No se pudo cargar el personaje.</span>
     </div>
+
     }
 
     @if (characterResource.hasValue()) {
-    <article class="card border border-base-300 bg-base-100 shadow-sm">
-        <div class="card-body gap-6 md:flex-row">
-            <div class="mx-auto md:mx-0">
-                <img
-                    [src]="'https://cdn.thesimpsonsapi.com/500'+characterResource.value()!.portrait_path"
-                    [alt]="characterResource.value()!.name"
-                    class="h-56 w-56 rounded-2xl object-cover ring ring-base-300 ring-offset-2 ring-offset-base-100"
-                />
-            </div>
 
-            <div class="space-y-3">
-                <h2 class="text-3xl font-black tracking-tight">
-                    {{ characterResource.value()!.name }}
-                </h2>
+    <div class="card bg-base-100 shadow-2xl border border-base-300">
 
-                <p class="text-base-content/80">
-                    <strong>Ocupacion:</strong>
-                    {{ characterResource.value()!.occupation || 'Sin ocupacion registrada' }}
-                </p>
+      <div class="card-body md:flex-row gap-10 items-center">
+<img
+  [src]="'https://cdn.thesimpsonsapi.com/500' + characterResource.value()!.portrait_path"
+  [alt]="characterResource.value()!.name"
+  class="w-64 h-64 rounded-3xl object-cover ring ring-primary ring-offset-4 ring-offset-base-100"
+/>
 
-                <p class="text-base-content/80">
-                    <strong>Genero:</strong>
-                    {{ characterResource.value()!.gender || 'No registrado' }}
-                </p>
+        <div class="space-y-4">
 
-                <p class="text-base-content/80">
-                    <strong>Edad:</strong>
-                    {{ characterResource.value()!.age ?? 'No registrada' }}
-                </p>
+          <h1 class="text-5xl font-black">
+            {{ characterResource.value()!.name }}
+          </h1>
 
-                <span
-                    class="badge badge-lg"
-                    [class.badge-success]="characterResource.value()!.status === 'Alive'"
-                    [class.badge-error]="characterResource.value()!.status === 'Deceased'"
-                    [class.badge-warning]="characterResource.value()!.status !== 'Alive' && characterResource.value()!.status !== 'Deceased'"
-                >
-                    {{ characterResource.value()!.status || 'Desconocido' }}
-                </span>
-            </div>
+          <p class="text-lg text-base-content/70">
+            {{ characterResource.value()!.occupation }}
+          </p>
+
+          <div class="space-y-2">
+
+            <p>
+              <strong>Genero:</strong>
+              {{ characterResource.value()!.gender }}
+            </p>
+
+            <p>
+              <strong>Edad:</strong>
+              {{ characterResource.value()!.age ?? 'No registrada' }}
+            </p>
+
+            <p>
+              <strong>Estado:</strong>
+
+              <span
+                class="badge ml-2"
+                [class.badge-success]="characterResource.value()!.status === 'Alive'"
+                [class.badge-error]="characterResource.value()!.status === 'Deceased'"
+              >
+                {{ characterResource.value()!.status }}
+              </span>
+
+            </p>
+
+          </div>
+
         </div>
-    </article>
+
+      </div>
+
+    </div>
+
     }
 
-    
+  </div>
+
 </section>

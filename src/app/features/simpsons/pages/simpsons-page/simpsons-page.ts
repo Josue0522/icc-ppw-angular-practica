@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 
-import { rxResource } from '@angular/core/rxjs-interop';
-
 import { RouterModule } from '@angular/router';
+
+import { rxResource } from '@angular/core/rxjs-interop';
 
 import { SimpsonsService } from '../../services/simpsons.service';
 
@@ -35,6 +35,7 @@ export class SimpsonsPage {
         page: params.page,
         limit: params.limit,
       }),
+
   });
 
 }
