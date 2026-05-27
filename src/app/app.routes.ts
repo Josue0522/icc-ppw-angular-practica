@@ -9,6 +9,7 @@ import {ProjectConfigPage} from './features/project/pages/project-config-page/pr
 import { UiComponentsPage } from './features/ui-components/pages/ui-components-page/ui-components-page';
 import {SimpsonsPage} from './features/simpsons/pages/simpsons-page/simpsons-page';
 import { SimpsonDetailPageComponent } from './features/simpsons/pages/simpson-detail-page/simpson-detail-page';
+import { AuthPage } from './features/auth/pages/auth-page/auth-page';
 
 export const routes: Routes = [
     { path: '', component: HomePage },
@@ -21,5 +22,6 @@ export const routes: Routes = [
     { path: 'ui-components', component: UiComponentsPage },
     { path: 'simpsons', component: SimpsonsPage},
     { path: 'simpsons/:id', component: SimpsonDetailPageComponent},
+    { path: 'auth', component: AuthPage },
     { path: '**', redirectTo: '' }
 ];
