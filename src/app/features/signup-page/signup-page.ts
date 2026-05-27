@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { passwordMatchValidator } from './validators/password-match.validator';
 import { emailUniqueValidator } from './validators/email-unique.validator';
 import { email } from '@angular/forms/signals';
 import { Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-signup-page',

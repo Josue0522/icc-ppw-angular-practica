@@ -11,73 +11,102 @@
 
     @if (characterResource.isLoading()) {
 
-    <div class="flex justify-center items-center h-64">
-      <span class="loading loading-spinner loading-lg text-primary"></span>
-    </div>
+      <div class="flex justify-center items-center h-64">
+        <span class="loading loading-spinner loading-lg text-primary"></span>
+      </div>
 
     }
 
     @if (characterResource.error()) {
 
-    <div class="alert alert-error">
-      <span>No se pudo cargar el personaje.</span>
-    </div>
+      <div class="alert alert-error">
+        <span>No se pudo cargar el personaje.</span>
+      </div>
 
     }
 
     @if (characterResource.hasValue()) {
 
-    <div class="card bg-base-100 shadow-2xl border border-base-300">
+      <div class="card bg-base-100 shadow-2xl border border-base-300">
 
-      <div class="card-body md:flex-row gap-10 items-center">
-<img
-  [src]="'https://cdn.thesimpsonsapi.com/500' + characterResource.value()!.portrait_path"
-  [alt]="characterResource.value()!.name"
-  class="w-64 h-64 rounded-3xl object-cover ring ring-primary ring-offset-4 ring-offset-base-100"
-/>
+        <div class="card-body flex flex-col md:flex-row gap-10 items-center">
 
-        <div class="space-y-4">
+          <img
+            [src]="'https://cdn.thesimpsonsapi.com/500' + characterResource.value()!.portrait_path"
+            [alt]="characterResource.value()!.name"
+            class="w-64 h-64 rounded-3xl object-cover ring ring-primary ring-offset-4 ring-offset-base-100"
+          />
 
-          <h1 class="text-5xl font-black">
-            {{ characterResource.value()!.name }}
-          </h1>
+          <div class="space-y-4">
 
-          <p class="text-lg text-base-content/70">
-            {{ characterResource.value()!.occupation }}
-          </p>
+            <h1 class="text-5xl font-black">
+              {{ characterResource.value()!.name }}
+            </h1>
 
-          <div class="space-y-2">
-
-            <p>
-              <strong>Genero:</strong>
-              {{ characterResource.value()!.gender }}
+            <p class="text-lg text-base-content/70">
+              {{ characterResource.value()!.occupation }}
             </p>
 
-            <p>
-              <strong>Edad:</strong>
-              {{ characterResource.value()!.age ?? 'No registrada' }}
-            </p>
+            <div class="space-y-2">
 
-            <p>
-              <strong>Estado:</strong>
+              <p>
+                <strong>Genero:</strong>
+                {{ characterResource.value()!.gender }}
+              </p>
 
-              <span
-                class="badge ml-2"
-                [class.badge-success]="characterResource.value()!.status === 'Alive'"
-                [class.badge-error]="characterResource.value()!.status === 'Deceased'"
+              <p>
+                <strong>Edad:</strong>
+                {{ characterResource.value()!.age ?? 'No registrada' }}
+              </p>
+
+              <p>
+                <strong>Estado:</strong>
+
+                <span
+                  class="badge ml-2"
+                  [class.badge-success]="characterResource.value()!.status === 'Alive'"
+                  [class.badge-error]="characterResource.value()!.status === 'Deceased'"
+                >
+                  {{ characterResource.value()!.status }}
+                </span>
+
+              </p>
+
+            </div>
+
+            <!-- FAVORITOS -->
+            @if (authService.currentUser()) {
+
+              <button
+                class="btn btn-outline btn-sm"
+                [class.btn-warning]="isFavorite()"
+                (click)="toggleFavorite()"
               >
-                {{ characterResource.value()!.status }}
-              </span>
 
-            </p>
+                @if (isFavorite()) {
+                  ★ Guardado en favoritos
+                } @else {
+                  ☆ Agregar a favoritos
+                }
+
+              </button>
+
+            } @else {
+
+              <a
+                class="btn btn-ghost btn-sm"
+                routerLink="/auth"
+              >
+                Inicia sesión para guardar favoritos
+              </a>
+
+            }
 
           </div>
 
         </div>
 
       </div>
-
-    </div>
 
     }
 
